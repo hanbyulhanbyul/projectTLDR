@@ -7,11 +7,11 @@
     <!-- Required meta tags -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!doctype html>
-    <html lang="en">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- CSS -->
+    <link href="TLDRstyle.css" rel="stylesheet">
     <!-- JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
@@ -22,33 +22,142 @@
         crossorigin="anonymous"></script>
     <!-- 구글폰트 -->
     <link href="https://fonts.googleapis.com/css?family=Stylish&display=swap" rel="stylesheet">
+    <!-- datepicker -->
+    <script type="text/javascript" src="bootstrap-datepicker3.js"></script>
+    <script type="text/javascript" src="bootstrap-datepicker.kr.js"></script>
+    <link href="bootstrap-datepicker3.css" rel="stylesheet">
 
-    <style type="text/css">
-        * {
-            /* font-family: 'Stylish', sans-serif; */
-        }
 
-        .wrap {
-            width: 900px;
-            margin: auto;
-        }
 
-        .comment {
-            color: blue;
-            font-weight: bold;
-        }
-    </style>
-    <script></script>
+
 </head>
 
+<!-- ####################################################################################### -->
+
 <body>
-    <div class="jumbotron">
-        <h1 class="display-4">Project TLDR; 요약좀</h1>
+    <!-- jumbotron -->
+    <div class="header">
+        <h1 class="display-4">Project TLDR</h1>
         <p class="lead">카카오톡 대화를 분석하여 가장 많이 언급된 키워드를 알아볼 수 있습니다.</p>
         <hr class="my-4">
-        <p>ㅇㅇ</p>
-        <a class="btn btn-primary btn-lg" href="#" role="button">클릭!</a>
+        <p class="lead">키워드가 무엇이었을까?
+            <a id="btn_click" onclick="btn_click()" class="btn btn-primary btn-lg" href="#" role="button">알아보자!</a></p>
     </div>
+
+    <div class="open-box" id="open_box">
+        <!-- datepicker -->
+        <div id="boxsize" class="form-group row">
+            <label for="day" class="col-sm-2 col-form-label">날짜</label>
+            <div id="datepicker" class="col-sm-10 input-group date">
+                <input type="text" class="form-control" width="300" />
+                <span class="input-group-addon"></span>
+            </div>
+        </div>
+
+        <!-- comment -->
+        <div class="form-group">
+            <label for="exampleFormControlTextarea1">코멘트</label>
+            <textarea id="posting-comment" class="form-control" rows="2"></textarea>
+        </div>
+
+        <!-- upload file -->
+        <form action="/fileUpload" method="POST" enctype="multipart/form-data">
+            <input type="file" name="file" />
+            <input type="submit" />
+        </form>
+
+        <!-- terms & conditions -->
+        <div class="form-group">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+                <label class="form-check-label" for="invalidCheck">
+                    Agree to terms and conditions
+                </label>
+                <div class="invalid-feedback">
+                    You must agree before submitting.
+                </div>
+                <button class="btn btn-primary" type="submit">키워드 분석</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- cards -->
+    <div class="card-columns">
+        <div class="card">
+            <img class="card-img-top"
+                src="https://pbs.twimg.com/profile_images/1115247339218849797/r0gBD54L_400x400.png"
+                alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">여기에 제목을 입력하세요</h5>
+                <p class="card-text"> 여기에 내용을 입력하세요.</p>
+                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            </div>
+        </div>
+
+
+        <br>
+        <br>
+        <br>
+
+        <script>
+            function btn_click() {
+                if ($('#open_box').css('display') == 'block') {
+                    $('#open_box').hide();
+                    $('#btn_click').text('업로드 열기')
+                } else {
+                    $('#open_box').show();
+                    $('#btn_click').text('업로드 닫기')
+                }
+            }
+
+            $('.input-group.date').datepicker({
+                format: "yyyy-mm-dd",
+                language: "kr",
+            });
+
+            // function add_card() {
+            //     // 1. #star_box의 내부 html 태그를 모두 삭제합니다.
+            //     // $('#star-box').empty()
+
+            //     // 2. 서버에 1) GET 방식으로, 2) /api/list 라는 주소로 star_list를 요청합니다.
+            //     $.ajax({
+            //         type: "GET",
+            //         url: "/addcard",
+            //         data: {},
+            //         success: function (response) {
+            //             // 3. 서버가 돌려준 star_list를 star라는 변수에 저장합니다.
+            //             let stars = response['stars_list']
+            //             // 4. for 문을 활용하여 star 배열의 요소를 차례대로 조회합니다.
+            //             for (let i = 0; i < stars.length; i++) {
+            //                 let star = stars[i]
+            //                 // 5. star[i] 요소의 name, url, img_url, recent, like 키 값을 활용하여 값을 조회합니다.
+            //                 let name = star['name']
+            //                 let url = star['url']
+            //                 let img_url = star['img_url']
+            //                 let recent = star['recent']
+            //                 let like = star['like']
+
+            //                 // 6. 카드를 만듭니다.
+            //                 let temp_html =
+            //                     <div class="card">
+            //                         <img class="card-img-top"
+            //                             src="#"
+            //                             alt="Card image cap">
+            //                             <div class="card-body">
+            //                                 <h5 class="card-title">여기에 제목을 입력하세요</h5>
+            //                                 <p class="card-text"> 여기에 내용을 입력하세요.</p>
+            //                                 <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            //                             </div>
+            //                           // 7. #star-box에 temp_html을 붙입니다.
+            //                           $('#make_card').append(temp_html)
+            //                           }
+            //                       }
+            //                   });
+            //               }
+
+
+        </script>
+
 
 </body>
 

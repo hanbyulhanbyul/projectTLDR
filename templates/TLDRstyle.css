@@ -1,0 +1,58 @@
+
+
+/* jumbotron */
+.header {
+    margin: auto 50px auto 50px;
+    width: auto;
+    height: 200px;
+    background: #FFFFFF;
+    color: #3A1B1D;    
+}
+.display-4 {
+    width: 325px;
+    height: 63px;
+    left: 139px;
+    top: 35px;
+    font-weight: bold;
+    font-size: 50px;
+    line-height: 63px;
+    color: #3A1B1D;
+}
+
+.lead {
+    width: 755px;
+    height: 31px;
+    left: 60px;
+    /* top: 112px; */
+    font-size: 15px;
+    /* line-height: 31px; */
+    color: #3A1B1D;
+}
+
+
+
+
+.open-box {
+    padding: 2rem; 
+    position: auto;
+    padding: 2rem;
+    margin: 2rem auto;
+    max-width: 500px;
+    max-height: 280px;
+    display: block; 
+    margin: 2rem auto; 
+    border: 5px solid rgba(58, 27, 29, 0.85);
+    border-radius: 40px;
+    background: #FFFFFF;
+  }
+
+#open_box {
+    display: none;
+  }
+
+/* .comment {
+    color: blue;
+    font-weight: bold;
+} */
+
+
